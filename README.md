@@ -1,6 +1,6 @@
 # LocationWebSocket
 
-A Fabric mod for Minecraft that broadcasts player location and rotation data via WebSocket in real-time.
+A server-side Fabric mod for Minecraft that broadcasts player location and rotation data via WebSocket in real-time.
 
 ## Features
 
@@ -28,7 +28,7 @@ A Fabric mod for Minecraft that broadcasts player location and rotation data via
 
 On first run, the mod creates a configuration file at:
 ```
-.minecraft/config/LocationWebsocket_settings.json
+.minecraft/config/LocationWebSocket/config.json
 ```
 
 ### Configuration Options
@@ -36,14 +36,16 @@ On first run, the mod creates a configuration file at:
 | Option | Default | Description |
 |--------|---------|-------------|
 | `websocketPort` | `8080` | The port number for the WebSocket connection |
-| `websocketURL` | `localhost` | The WebSocket server URL/hostname (e.g., `localhost` or `127.0.0.1`) |
+| `websocketURL` | `127.0.0.1` | The WebSocket server URL/hostname (e.g., `localhost` or `127.0.0.1`) |
+| `enableMod` | `true` | Whether the mod is enabled. Set to `false` to disable without removing the mod |
 
 ### Example Configuration
 
 ```json
 {
   "websocketPort": 8080,
-  "websocketURL": "localhost"
+  "websocketURL": "localhost",
+  "enableMod": true
 }
 ```
 
