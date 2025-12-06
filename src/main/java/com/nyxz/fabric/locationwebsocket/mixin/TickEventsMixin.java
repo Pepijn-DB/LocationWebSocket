@@ -1,6 +1,8 @@
 package com.nyxz.fabric.locationwebsocket.mixin;
 
 import com.nyxz.fabric.locationwebsocket.LocationWebSocket;
+import com.nyxz.fabric.locationwebsocket.handler.ERRORS;
+import com.nyxz.fabric.locationwebsocket.handler.ERRORS;
 import com.nyxz.fabric.locationwebsocket.handler.Location;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.server.MinecraftServer;
@@ -31,6 +33,10 @@ public class TickEventsMixin {
                 thread.start();
             }
             catch (Exception e) {
+                if (LocationWebSocket.errors.contains(ERRORS.UNKNOWN_ERROR)) {
+                    return;
+                }
+                LocationWebSocket.errors.add(ERRORS.UNKNOWN_ERROR);
                 LocationWebSocket.LOGGER.error("Error during tick event: " + e.getMessage());
             }
         });
