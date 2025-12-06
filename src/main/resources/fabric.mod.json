@@ -2,32 +2,25 @@
 	"schemaVersion": 1,
 	"id": "locationwebsocket",
 	"version": "${version}",
-	"name": "LocationWebsocket",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "LocationWebSocket",
+	"description": "A Fabric mod that sends all player location data to a WebSocket server.",
 	"authors": [
-		"Me!"
+		"Pepijn Bookelaar"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://locationwebsocket.fabric.nyxz.nl/",
+		"sources": "https://github.com/Pepijn-DB/LocationWebSocket"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/locationwebsocket/icon.png",
-	"environment": "*",
+	"environment": "server",
 	"entrypoints": {
 		"main": [
           "com.nyxz.fabric.locationwebsocket.LocationWebSocket"
-		],
-		"client": [
-			"com.nyxz.fabric.locationwebsocket.LocationWebsocketClient"
 		]
 	},
 	"mixins": [
-		"locationwebsocket.mixins.json",
-		{
-			"config": "locationwebsocket.client.mixins.json",
-			"environment": "client"
-		}
+		"locationwebsocket.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.18.1",
