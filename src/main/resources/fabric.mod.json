@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "locationwebsocket",
-	"version": "1.0.0",
+	"version": "${version}",
 	"name": "LocationWebSocket",
 	"description": "A Fabric mod that sends all player location data to a WebSocket server.",
 	"authors": [
