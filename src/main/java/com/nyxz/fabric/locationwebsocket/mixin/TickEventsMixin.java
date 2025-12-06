@@ -3,7 +3,6 @@ package com.nyxz.fabric.locationwebsocket.mixin;
 import com.nyxz.fabric.locationwebsocket.Config;
 import com.nyxz.fabric.locationwebsocket.LocationWebSocket;
 import com.nyxz.fabric.locationwebsocket.handler.ERRORS;
-import com.nyxz.fabric.locationwebsocket.handler.ERRORS;
 import com.nyxz.fabric.locationwebsocket.handler.Location;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.server.MinecraftServer;
