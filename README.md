@@ -36,7 +36,7 @@ On first run, the mod creates a configuration file at:
 | Option | Default | Description |
 |--------|---------|-------------|
 | `websocketPort` | `8080` | The port number for the WebSocket connection |
-| `websocketURL` | `localhost` | The WebSocket server URL/hostname |
+| `websocketURL` | `localhost` | The WebSocket server URL/hostname (e.g., `localhost` or `127.0.0.1`) |
 
 ### Example Configuration
 
