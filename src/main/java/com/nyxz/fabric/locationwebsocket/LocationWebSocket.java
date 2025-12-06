@@ -7,6 +7,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class LocationWebSocket implements ModInitializer {
 
     public static Config CONFIG;
 
-    public static List<ERRORS> errors = new ArrayList<com.nyxz.fabric.locationwebsocket.handler.ERRORS>();
+    public static List<ERRORS> errors = new ArrayList<>();
 
 
     /**
@@ -36,10 +37,12 @@ public class LocationWebSocket implements ModInitializer {
 
 
         try {
-            Path configPath = FabricLoader.getInstance().getConfigDir().resolve("LocationWebsocket_settings.json");
+            Path configDir = FabricLoader.getInstance().getConfigDir().resolve("LocationWebSocket");
+            Files.createDirectories(configDir);
+            Path configPath = configDir.resolve("config.json");
             LocationWebSocket.CONFIG = Config.load(configPath);
         } catch (Exception e) {
-            LOGGER.error("Failed to load config: " + e.getMessage());
+            LOGGER.error("Failed to load config: {}", e.getMessage());
             LOGGER.error("Mod will not function correctly (or at all) without a valid config.");
         }
 

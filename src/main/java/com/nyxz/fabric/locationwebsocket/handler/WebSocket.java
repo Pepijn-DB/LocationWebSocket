@@ -14,13 +14,15 @@ public class WebSocket extends WebSocketClient {
     }
 
     public WebSocket(){
-        super(URI.create("ws://" + Config.WEBSOCKET_URL + ":" + Config.WEBSOCKET_PORT));
+        super(URI.create("ws://" + Config.webSocketUrl + ":" + Config.webSocketPort));
     }
 
     @Override
     public void onOpen(ServerHandshake handshakedata) {
 //        LocationWebSocket.LOGGER.info("WebSocket connection opened.");
         //No need for a logger here, creates a lot of spam. (only debug purpose)
+
+//        Config.logInfo("WebSocket connection opened.");
     }
 
     @Override
@@ -32,6 +34,8 @@ public class WebSocket extends WebSocketClient {
     public void onClose(int code, String reason, boolean remote) {
 //        LocationWebSocket.LOGGER.info("WebSocket connection closed: {}", reason);
         //No need for a logger here, creates a lot of spam. (only debug purpose)
+
+        //Config.logInfo("WebSocket connection closed: " + reason);
     }
 
     @Override
@@ -39,6 +43,7 @@ public class WebSocket extends WebSocketClient {
         if (LocationWebSocket.errors.contains(ERRORS.WEBSOCKET_NOT_CONNECTED)){
             return;
         }
+        Config.logErrors("WebSocket error: " + e.getMessage());
         LocationWebSocket.errors.add(ERRORS.WEBSOCKET_NOT_CONNECTED);
         LocationWebSocket.LOGGER.error("WebSocket error. {}", e.toString());
     }
@@ -49,10 +54,15 @@ public class WebSocket extends WebSocketClient {
                 connectBlocking();
             }
             send(message);
+            if (LocationWebSocket.errors.contains(ERRORS.WEBSOCKET_NOT_CONNECTED)){
+                Config.logDebug("WebSocket debug: Connection re-established.");
+                LocationWebSocket.errors.removeAll(LocationWebSocket.errors);
+            }
         } catch (Exception e) {
             if (LocationWebSocket.errors.contains(ERRORS.WEBSOCKET_NOT_CONNECTED)){
                 return;
             }
+            Config.logErrors("WebSocket error: " + e.getMessage());
             LocationWebSocket.errors.add(ERRORS.WEBSOCKET_NOT_CONNECTED);
             LocationWebSocket.LOGGER.error("Failed to send WebSocket message.", e);
         }
