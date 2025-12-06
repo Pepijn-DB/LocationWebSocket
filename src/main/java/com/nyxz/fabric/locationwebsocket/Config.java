@@ -10,14 +10,18 @@ import net.minecraft.util.StrictJsonParser;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Scanner;
 
 import static net.fabricmc.fabric.impl.resource.loader.ModResourcePackUtil.GSON;
 
 public class Config {
     public static int WEBSOCKET_PORT = 8080;
-    public static String WEBSOCKET_URL = "ws://localhost";
+    public static String WEBSOCKET_URL = "127.0.0.1";
 
+    /**
+     * Constructor for the Config file
+     * @param WEBSOCKET_PORT The port for the WebSocket server
+     * @param WEBSOCKET_URL The URL for the WebSocket server
+     */
     public Config(int WEBSOCKET_PORT, String WEBSOCKET_URL) {
         Config.WEBSOCKET_PORT = WEBSOCKET_PORT;
         Config.WEBSOCKET_URL = WEBSOCKET_URL;
@@ -25,18 +29,18 @@ public class Config {
 
     public static final Codec<Config> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.INT
-                    .fieldOf("unixSocketEnabled")
-                    .forGetter(Config::setWEBSOCKET_PORT),
+                    .fieldOf("websocketPort")
+                    .forGetter(Config::getWebsocketPort),
             Codec.STRING
-                    .fieldOf("unixSocketPath")
-                    .forGetter(Config::setWEBSOCKET_URL)
+                    .fieldOf("websocketURL")
+                    .forGetter(Config::getWebsocketUrl)
     ).apply(instance, Config::new));
 
-    public int setWEBSOCKET_PORT() {
+    public int getWebsocketPort() {
         return WEBSOCKET_PORT;
     }
 
-    public String setWEBSOCKET_URL() {
+    public String getWebsocketUrl() {
         return WEBSOCKET_URL;
     }
 
@@ -58,9 +62,9 @@ public class Config {
                         JsonOps.INSTANCE,
                         StrictJsonParser.parse(Files.readString(configPath))
                 );
-                config = result.resultOrPartial(LocationWebsocket.LOGGER::error).orElseThrow();
+                config = result.resultOrPartial(LocationWebSocket.LOGGER::error).orElseThrow();
             } catch (IOException e) {
-                LocationWebsocket.LOGGER.error("Failed to load config file", e);
+                LocationWebSocket.LOGGER.error("Failed to load config file", e);
             }
         } else if(file.getParentFile().canWrite() || file.canWrite()) {
             DataResult<JsonElement> result = Config.CODEC.encodeStart(JsonOps.INSTANCE, Config.DEFAULT);
@@ -68,10 +72,10 @@ public class Config {
             try(Writer writer = new FileWriter(file)) {
                 GSON.toJson(json, GSON.newJsonWriter(writer));
             } catch (IOException e) {
-                LocationWebsocket.LOGGER.error("Failed to write default config file", e);
+                LocationWebSocket.LOGGER.error("Failed to write default config file", e);
             }
         } else {
-            LocationWebsocket.LOGGER.info("Config at {} is not writable. Using default config.", configPath);
+            LocationWebSocket.LOGGER.info("Config at {} is not writable or readable. Using default config.", configPath);
         }
 
         return config;
