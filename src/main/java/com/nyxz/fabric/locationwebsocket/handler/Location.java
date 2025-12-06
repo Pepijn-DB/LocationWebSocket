@@ -1,5 +1,6 @@
 package com.nyxz.fabric.locationwebsocket.handler;
 
+import com.nyxz.fabric.locationwebsocket.annotations.Socket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
