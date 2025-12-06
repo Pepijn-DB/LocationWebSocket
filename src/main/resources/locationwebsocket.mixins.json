@@ -3,7 +3,7 @@
 	"package": "com.nyxz.fabric.locationwebsocket.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+      "TickEventsMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
