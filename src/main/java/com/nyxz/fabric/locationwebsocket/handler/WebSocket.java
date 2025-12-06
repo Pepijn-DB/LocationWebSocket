@@ -36,6 +36,10 @@ public class WebSocket extends WebSocketClient {
 
     @Override
     public void onError(Exception e) {
+        if (LocationWebSocket.errors.contains(ERRORS.WEBSOCKET_NOT_CONNECTED)){
+            return;
+        }
+        LocationWebSocket.errors.add(ERRORS.WEBSOCKET_NOT_CONNECTED);
         LocationWebSocket.LOGGER.error("WebSocket error. {}", e.toString());
     }
 
@@ -46,20 +50,11 @@ public class WebSocket extends WebSocketClient {
             }
             send(message);
         } catch (Exception e) {
+            if (LocationWebSocket.errors.contains(ERRORS.WEBSOCKET_NOT_CONNECTED)){
+                return;
+            }
+            LocationWebSocket.errors.add(ERRORS.WEBSOCKET_NOT_CONNECTED);
             LocationWebSocket.LOGGER.error("Failed to send WebSocket message.", e);
-        }
-    }
-
-    public static boolean canConnect() {
-        try {
-            URI uri = new URI("ws://" + Config.WEBSOCKET_URL + ":" + Config.WEBSOCKET_PORT);
-            WebSocket webSocket = new WebSocket(uri);
-            webSocket.connectBlocking();
-            webSocket.close();
-            return true;
-        } catch (Exception e) {
-            LocationWebSocket.LOGGER.error("WebSocket connection test failed.", e);
-            return false;
         }
     }
 }

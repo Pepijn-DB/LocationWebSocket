@@ -1,6 +1,6 @@
 package com.nyxz.fabric.locationwebsocket.handler;
 
-import com.nyxz.fabric.locationwebsocket.annotations.POST;
+import com.nyxz.fabric.locationwebsocket.annotations.Socket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -18,7 +18,7 @@ public class Location implements Runnable{
      * Sends the current locations of all players on the server via WebSocket in JSON format.
      */
     @Unique
-    @POST
+    @Socket
     public void run() {
         StringBuilder JSONString = new StringBuilder("{ \"players\": [");
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
