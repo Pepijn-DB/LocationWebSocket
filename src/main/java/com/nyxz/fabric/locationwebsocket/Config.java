@@ -24,6 +24,25 @@ public class Config {
 
     public static File errorFilePath;
     public static Writer errorFile;
+    /**
+     * Lock object for synchronizing access to errorFile.
+     * All code that writes to errorFile must synchronize on this lock.
+     */
+    private static final Object errorFileLock = new Object();
+
+    /**
+     * Thread-safe helper for writing to the error file.
+     * Usage: Config.writeErrorLine("message");
+     */
+    public static void writeErrorLine(String line) throws IOException {
+        if (errorFile != null) {
+            synchronized (errorFileLock) {
+                errorFile.write(line);
+                errorFile.write(System.lineSeparator());
+                errorFile.flush();
+            }
+        }
+    }
 
     /**
      * Constructor for the Config file
