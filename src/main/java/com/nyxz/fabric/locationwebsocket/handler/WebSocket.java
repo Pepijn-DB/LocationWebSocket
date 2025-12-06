@@ -56,7 +56,7 @@ public class WebSocket extends WebSocketClient {
             send(message);
             if (LocationWebSocket.errors.contains(ERRORS.WEBSOCKET_NOT_CONNECTED)){
                 Config.logDebug("WebSocket debug: Connection re-established.");
-                LocationWebSocket.errors.removeAll(LocationWebSocket.errors);
+                LocationWebSocket.errors.remove(ERRORS.WEBSOCKET_NOT_CONNECTED);
             }
         } catch (Exception e) {
             if (LocationWebSocket.errors.contains(ERRORS.WEBSOCKET_NOT_CONNECTED)){
