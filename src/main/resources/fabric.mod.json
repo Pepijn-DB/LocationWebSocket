@@ -16,7 +16,7 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.nyxz.fabric.locationwebsocket.LocationWebsocket"
+          "com.nyxz.fabric.locationwebsocket.LocationWebSocket"
 		],
 		"client": [
 			"com.nyxz.fabric.locationwebsocket.LocationWebsocketClient"
