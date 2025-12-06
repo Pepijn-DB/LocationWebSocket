@@ -197,7 +197,7 @@ public class Config {
     public static boolean logInfo(String message) {
         if (LocationWebSocket.CONFIG.getErrorFile() != null) {
             try{
-                LocationWebSocket.CONFIG.getErrorFile().write("[INFO]: "+message + "\n");
+                LocationWebSocket.CONFIG.getErrorFile().write("[INFO]: " + message + "\n");
                 LocationWebSocket.CONFIG.getErrorFile().flush();
                 LocationWebSocket.errors.remove(ERRORS.ERROR_FILE_WRITE_FAILURE);
                 return true;
